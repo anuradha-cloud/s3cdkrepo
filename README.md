@@ -1,14 +1,31 @@
-# Welcome to your CDK TypeScript project
+# AWS CDK Project - S3 Bucket with Lambda to List Files
 
-This is a blank project for CDK development with TypeScript.
+This project demonstrates how to use AWS CDK to:
+- Create an S3 bucket.
+- Upload dummy files to the bucket.
+- Deploy a Node.js Lambda function that lists all files in the bucket.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## 📦 Project Overview
+I created an S3 bucket using AWS CDK.
+Uploaded dummy files to the S3 bucket through CDK's BucketDeployment.
+Developed a Node.js Lambda function that lists the files in the S3 bucket.
+Deployed the Lambda function using AWS CDK and granted it permission to access the bucket.
+I tested the Lambda function inside AWS Console by invoking it to confirm that it lists the bucket files.
+I also resolved common deployment issues (like .gitignore exclusions and missing modules) and now the entire working project is available in my GitHub repo.
 
-## Useful commands
-
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
+## 📂 Project Structure:
+my-s3-cdk-project/
+│
+├── dummy-files/ → Folder with dummy files uploaded to S3
+│
+├── lambda/ → Lambda function source code
+│ └── index.js → Lists all files in the S3 bucket
+│
+├── lib/
+│ └── my-s3-cdk-project-stack.ts → CDK stack with S3 + Lambda definitions
+│
+├── .gitignore
+├── README.md → Project Documentation
+├── cdk.json
+├── package.json
+└── tsconfig.json
