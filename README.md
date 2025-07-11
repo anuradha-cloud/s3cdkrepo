@@ -11,16 +11,16 @@ All infrastructure is fully automated via CDK (TypeScript).
 
 ## 📦 Project Components
 
-### ✅ 1. S3 Bucket
+### 1. S3 Bucket
 - Stores dummy files.
 - Automatically deploys dummy files using `aws-s3-deployment` in CDK.
 
-### ✅ 2. Lambda Function (Node.js)
+### 2. Lambda Function (Node.js)
 - Reads file list from the S3 bucket.
 - Logs output to CloudWatch Logs.
 - Deployed via CDK inside `/lambda` folder.
 
-### ✅ 3. ECS Fargate Task (Dockerized Node.js App)
+### 3. ECS Fargate Task (Dockerized Node.js App)
 - Dockerized Node.js app placed inside `/ecs-app`.
 - Connects to the same S3 bucket using `@aws-sdk/client-s3`.
 - Logs output to CloudWatch Logs.
