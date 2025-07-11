@@ -1,31 +1,56 @@
-# AWS CDK Project - S3 Bucket with Lambda to List Files
+# AWS CDK Project: S3 Bucket + Lambda + ECS Fargate (Dockerized Node.js App)
 
-This project demonstrates how to use AWS CDK to:
-- Create an S3 bucket.
-- Upload dummy files to the bucket.
-- Deploy a Node.js Lambda function that lists all files in the bucket.
+## 📋 Project Overview
 
-## 📦 Project Overview
-I created an S3 bucket using AWS CDK.
-Uploaded dummy files to the S3 bucket through CDK's BucketDeployment.
-Developed a Node.js Lambda function that lists the files in the S3 bucket.
-Deployed the Lambda function using AWS CDK and granted it permission to access the bucket.
-I tested the Lambda function inside AWS Console by invoking it to confirm that it lists the bucket files.
-I also resolved common deployment issues (like .gitignore exclusions and missing modules) and now the entire working project is available in my GitHub repo.
+This project demonstrates the use of AWS CDK (Cloud Development Kit) to deploy:
+- An S3 bucket with dummy files.
+- A Lambda function that lists the files in the S3 bucket.
+- An ECS Fargate Task running a Dockerized Node.js app that also lists files from the S3 bucket.
 
-## 📂 Project Structure:
+All infrastructure is fully automated via CDK (TypeScript).
+
+## 📦 Project Components
+
+### ✅ 1. S3 Bucket
+- Stores dummy files.
+- Automatically deploys dummy files using `aws-s3-deployment` in CDK.
+
+### ✅ 2. Lambda Function (Node.js)
+- Reads file list from the S3 bucket.
+- Logs output to CloudWatch Logs.
+- Deployed via CDK inside `/lambda` folder.
+
+### ✅ 3. ECS Fargate Task (Dockerized Node.js App)
+- Dockerized Node.js app placed inside `/ecs-app`.
+- Connects to the same S3 bucket using `@aws-sdk/client-s3`.
+- Logs output to CloudWatch Logs.
+- Deployed via CDK with Fargate launch type (Serverless containers).
+
+---
+
+## 🗂️ Project Structure
 my-s3-cdk-project/
 │
-├── dummy-files/ → Folder with dummy files uploaded to S3
+├── ecs-app/ ← Dockerized Node.js app for ECS Fargate
+│ ├── Dockerfile
+│ ├── index.js ← Lists files from S3 bucket
+│ ├── package.json
+│ └── ...
 │
-├── lambda/ → Lambda function source code
-│ └── index.js → Lists all files in the S3 bucket
+├── lambda/ ← Lambda function to list S3 files
+│ └── index.js
+│
+├── dummy-files/ ← Dummy files to upload to S3
 │
 ├── lib/
-│ └── my-s3-cdk-project-stack.ts → CDK stack with S3 + Lambda definitions
+│ └── s3-stack.ts ← CDK stack with S3 + Lambda + ECS Fargate setup
 │
-├── .gitignore
-├── README.md → Project Documentation
-├── cdk.json
-├── package.json
-└── tsconfig.json
+├── bin/
+│ └── my-s3-cdk-project.ts ← CDK app entry point
+│
+├── test/ ← CDK tests
+│
+├── cdk.json ← CDK configuration
+├── package.json ← CDK project dependencies
+├── README.md ← Project documentation
+└── tsconfig.json ← TypeScript config
